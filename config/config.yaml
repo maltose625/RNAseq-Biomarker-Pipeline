@@ -1,0 +1,120 @@
+# =========================================================================
+# RNA-seq 自动化分析管线 配置文件
+# =========================================================================
+
+project:
+  name: "GSE126604_NAFLD_Microbiome"
+  species: "mouse"
+  description: "基于小鼠模型的 NAFLD 差异表达、富集分析、特征筛选与人类验证分析流程"
+
+paths:
+  # -----------------------------
+  # 小鼠输入文件
+  # -----------------------------
+  counts_matrix: "data/clean_counts/All_Samples_counts.txt"
+  sample_info: "config/sample_info.tsv"
+
+  # -----------------------------
+  # 输出目录
+  # -----------------------------
+  results_deseq2: "results/01_DESeq2"
+  results_enrichment: "results/02_Enrichment"
+  results_ml: "results/03_MachineLearning"
+  log_dir: "logs"
+
+  # -----------------------------
+  # DESeq2 统一输出文件
+  # -----------------------------
+  deseq2_result_file: "results/01_DESeq2/DESeq2_Annotated_Results.csv"
+
+  # -----------------------------
+  # 严格 mouse-human ortholog 映射表
+  # 该文件建议由 biomaRt 预先生成，保留 high-confidence 1:1 ortholog
+  # -----------------------------
+  ortholog_map: "data/reference/mouse_human_ortholog_strict.tsv"
+
+  # -----------------------------
+  # Development cohort
+  # 人类开发队列（原 GSE193066）
+  # -----------------------------
+  human_series_matrix: "/mnt/d/A/WSL/WSL/GSE126604-supplyment/GSE193066_series_matrix.txt.gz"
+  human_gct_matrix: "/mnt/d/A/WSL/WSL/GSE126604-supplyment/GSE193066_NAFLD.HUn106.gct.gz"
+
+  # -----------------------------
+  # External validation cohort
+  # 人类独立外部验证队列（示例：GSE193080）
+  # 注意：请根据你实际下载到的补充文件名修改下面路径
+  # 如果文件不存在，04_human_validation.R 会自动跳过 external validation
+  # -----------------------------
+  human_series_matrix_external: "/mnt/d/A/WSL/WSL/GSE126604-supplyment/GSE193080_series_matrix.txt.gz"
+  human_gct_matrix_external: "/mnt/d/A/WSL/WSL/GSE126604-supplyment/GSE193080_NAFLD.KUTHn59.gct.gz"
+
+  # -----------------------------
+  # 小鼠特征筛选输出
+  # 当 Stage 3 降级时，脚本会优先读取 Candidate_Genes_for_ML.csv
+  # -----------------------------
+  mouse_candidate_genes: "results/03_MachineLearning/mouse_feature_selection/Candidate_Genes_for_ML.csv"
+  mouse_core_biomarkers: "results/03_MachineLearning/mouse_feature_selection/Core_Biomarkers_1se.csv"
+
+params:
+  # -----------------------------
+  # DESeq2 参数
+  # -----------------------------
+  deseq2:
+    ref_group: "Control"
+    trt_group: "Treatment"
+    strip_ensembl_version: true
+    min_count: 10
+    min_samples: 2
+
+  # -----------------------------
+  # 富集分析参数
+  # -----------------------------
+  enrichment:
+    id_type: "ENTREZID"
+    go_ont: "BP"
+    p_adjust_method: "BH"
+    qvalue_cutoff: 0.05
+    readable: true
+    show_category: 10
+    kegg_organism: "mmu"
+    min_gs_size: 10
+    max_gs_size: 500
+
+  # -----------------------------
+  # 机器学习参数
+  # -----------------------------
+  ml:
+    seed: 123
+    alpha: 1
+    lambda_choice: "lambda.1se"
+    standardize: true
+    min_class_count_mouse_cv: 4
+    min_class_count_human_model: 8
+
+  # -----------------------------
+  # Development cohort 表型配置
+  # 对应 GSE193066
+  # -----------------------------
+  human_validation:
+    biopsy_col: "biopsy"
+    biopsy_keep_pattern: "1st"
+    risk_col: "pls-nafld-based risk prediction at 1st biopsy"
+    high_label: "high-risk"
+    title_col: "title"
+
+  # -----------------------------
+  # External cohort 表型配置
+  # 默认先与 development cohort 保持一致
+  # 如果你发现 GSE193080 字段名不同，只修改这一组即可
+  # -----------------------------
+  human_validation_external:
+    biopsy_col: "biopsy"
+    biopsy_keep_pattern: "1st"
+    risk_col: "pls-nafld-based risk prediction at 1st biopsy"
+    high_label: "high-risk"
+    title_col: "title"
+
+thresholds:
+  padj_cutoff: 0.05
+  log2fc_cutoff: 2.0

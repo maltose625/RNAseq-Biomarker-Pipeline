@@ -1,0 +1,54 @@
+# ==============================
+# R & Python Environment
+# ==============================
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Conda / Virtual Environments
+.conda/
+env/
+envs/
+renv/library/
+renv/local/
+
+# ==============================
+# Logs & Temporary Files
+# ==============================
+logs/*.log
+*.tmp
+*.bak
+*.swp
+.ipynb_checkpoints/
+
+# ==============================
+# Project Output & Data
+# ==============================
+# Ignore all results, but keep the directory structure
+results/
+!results/.gitkeep
+
+# Ignore all data, except references
+data/
+!data/reference/
+!data/reference/.gitkeep
+
+# Ignore large archives in root
+*.gz
+*.zip
+*.tar
+*.tar.gz
+
+# ==============================
+# OS & IDE
+# ==============================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
