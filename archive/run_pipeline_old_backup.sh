@@ -4,7 +4,7 @@ set -euo pipefail
 PROJECT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$PROJECT_DIR"
 
-ENV_NAME="${CONDA_ENV_NAME:-rnaseq_core}"
+ENV_NAME="${CONDA_ENV_NAME:-rnaseq_enrich}"
 LOG_DIR="logs"
 CONFIG_FILE="config/config.yaml"
 
@@ -96,16 +96,15 @@ run_stage() {
 }
 
 verify_output() {
-  local output_path="$1"
+  local output_file="$1"
   local label="$2"
-  if [[ -e "$output_path" ]]; then
-    log_info "$label 输出检查通过: $output_path"
+  if [[ -f "$output_file" ]]; then
+    log_info "$label 输出检查通过: $output_file"
   else
-    log_error "$label 输出缺失: $output_path"
+    log_error "$label 输出缺失: $output_file"
     exit 1
   fi
 }
-
 
 verify_stage4_scripts() {
   local stage4_scripts=(

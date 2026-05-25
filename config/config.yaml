@@ -109,12 +109,13 @@ params:
   # 如果你发现 GSE193080 字段名不同，只修改这一组即可
   # -----------------------------
   human_validation_external:
-    biopsy_col: "biopsy"
-    biopsy_keep_pattern: "1st"
-    risk_col: "pls-nafld-based risk prediction at 1st biopsy"
-    high_label: "high-risk"
     title_col: "title"
+    biopsy_col: null
+    biopsy_keep_pattern: null
+    risk_col: "pls-nafld-based risk prediction"
+    high_label: "high-risk"
+    min_common_samples: 20
 
 thresholds:
   padj_cutoff: 0.05
-  log2fc_cutoff: 2.0
+  log2fc_cutoff: 0.58
