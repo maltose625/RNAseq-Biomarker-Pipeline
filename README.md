@@ -118,9 +118,6 @@ The project uses:
 
 ```text
 project_root/
-├── README.md
-├── run_pipeline.sh
-├── .gitignore
 ├── config/
 │   ├── config.yaml
 │   └── sample_info.tsv
@@ -128,16 +125,33 @@ project_root/
 │   └── reference/
 │       └── mouse_human_ortholog_strict.tsv
 ├── logs/
+├── results/
+│   ├── 01_DESeq2/
+│   ├── 02_Enrichment/
+│   └── 03_MachineLearning/
+│       ├── mouse_feature_selection/
+│       └── human_validation/
 ├── scripts/
-│   ├── check_inputs.R
+│   ├── utils/
+│   │   ├── utils_build_ortholog_map.R
+│   │   └── utils_convert_mouse_human_ids.R
+│   ├── 00_fetch_and_qc.sh
+│   ├── 00_upstream_align_quant.sh
 │   ├── 01_deseq2_analysis.R
 │   ├── 02_enrichment.R
 │   ├── 03_lasso_mouse.R
+│   ├── 04_1_hv_common.R
+│   ├── 04_2_hv_mapping_io.R
+│   ├── 04_3_hv_cohort_io.R
+│   ├── 04_4_hv_modeling.R
+│   ├── 04_5_hv_calibration_threshold.R
+│   ├── 04_6_hv_recalibration.R
 │   ├── 04_human_validation.R
-│   └── utils_parse_mgi_ortholog.R
-└── results/
-    ├── 01_DESeq2/
-    ├── 02_Enrichment/
-    └── 03_MachineLearning/
-        ├── mouse_feature_selection/
-        └── human_validation/
+│   ├── check_inputs.R
+│   └── check_pipeline_health.py
+├── setup/
+├── .gitignore
+├── environment_rnaseq_core.yml
+├── README.md
+└── run_pipeline.sh
+```
