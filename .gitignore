@@ -30,9 +30,13 @@ logs/*.log
 # ==============================
 # Project Output & Data
 # ==============================
-# Ignore all results, but keep the directory structure
+# Ignore all results and scripts, but keep the directory structure
 results/
 !results/.gitkeep
+scripts/
+archive/
+config/
+setup/
 
 # Ignore all data, except references
 data/
