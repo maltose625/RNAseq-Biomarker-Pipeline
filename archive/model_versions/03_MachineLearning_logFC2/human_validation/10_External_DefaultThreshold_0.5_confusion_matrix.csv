@@ -1,5 +1,0 @@
-"Truth","Predicted","N"
-"low-risk","low-risk",1
-"low-risk","high-risk",24
-"high-risk","low-risk",0
-"high-risk","high-risk",34

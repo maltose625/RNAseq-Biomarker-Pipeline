@@ -1,2 +1,0 @@
-"threshold","AUC","Brier","Accuracy","Sensitivity","Specificity","PPV","NPV","BalancedAccuracy","F1","TN","FP","FN","TP"
-0.5,0.8,0.291027793720851,0.593220338983051,1,0.04,0.586206896551724,1,0.52,0.739130434782609,1,24,0,34

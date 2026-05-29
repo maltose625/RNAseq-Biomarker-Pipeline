@@ -1,3 +1,0 @@
-"Cohort","AUC","Brier","DefaultThreshold","LockedThreshold"
-"development",0.967806841046278,0.124937390815607,0.5,0.61335532701409
-"external",0.8,0.291027793720851,0.5,0.61335532701409
